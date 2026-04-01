@@ -1,0 +1,78 @@
+{
+  "metadata": {
+    "start_time": "2026-01-21T20:15:45.483082",
+    "end_time": "2026-01-21T20:15:45.490902",
+    "dataset_shape": [
+      1000,
+      20
+    ],
+    "target_column": "target"
+  },
+  "audit_steps": [
+    {
+      "tool_name": "leakage_detector",
+      "timestamp": "2026-01-21T20:15:45.483418",
+      "status": "fail",
+      "findings_count": 2,
+      "execution_time": 1.2
+    },
+    {
+      "tool_name": "bias_detector",
+      "timestamp": "2026-01-21T20:15:45.483711",
+      "status": "fail",
+      "findings_count": 1,
+      "execution_time": 0.8
+    },
+    {
+      "tool_name": "feature_utility",
+      "timestamp": "2026-01-21T20:15:45.484166",
+      "status": "warning",
+      "findings_count": 1,
+      "execution_time": 0.5
+    }
+  ],
+  "findings": {
+    "leakage_detector": [
+      {
+        "type": "perfect_correlation",
+        "severity": "critical",
+        "feature": "leaked_feature",
+        "message": "Feature has perfect correlation with target"
+      },
+      {
+        "type": "suspicious_name",
+        "severity": "warning",
+        "feature": "final_outcome",
+        "message": "Suspicious feature name"
+      }
+    ],
+    "bias_detector": [
+      {
+        "type": "severe_imbalance",
+        "severity": "critical",
+        "message": "Severe class imbalance detected"
+      }
+    ],
+    "feature_utility": [
+      {
+        "type": "constant_feature",
+        "severity": "warning",
+        "feature": "constant_col",
+        "message": "Feature has constant value"
+      }
+    ]
+  },
+  "tool_execution_order": [
+    "leakage_detector",
+    "bias_detector",
+    "feature_utility"
+  ],
+  "summary": {
+    "tools_executed": 3,
+    "total_findings": 4,
+    "critical_count": 2,
+    "warning_count": 2,
+    "info_count": 0,
+    "has_critical_blockers": true
+  }
+}
