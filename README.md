@@ -322,6 +322,44 @@ python test_agentic_enhancements.py
 
 [generate_test_datasets.py](backend/generate_test_datasets.py) synthesizes fixtures with known defects into [backend/test_data/](backend/test_data/) — `data_leakage_test.csv`, `class_imbalance_test.csv`, `multiple_issues_test.csv`, `clean_simple_test.csv`, `complex_large_test.csv`, plus `learning_test_v1/v2.csv` for exercising the meta-learner across consecutive runs. These are the right inputs for checking that a detector still fires after you change it.
 
+## Benchmark results
+
+Measured with [backend/benchmark.py](backend/benchmark.py), which audits every dataset twice — once letting the agent choose its own strategy, once forcing all five tools as a control. Ground truth is the defect deliberately injected by [generate_test_datasets.py](backend/generate_test_datasets.py), so "did the right detector fire" is known rather than inferred.
+
+| Dataset | Rows | Injected defect | Expected detector fired | Verdict | Score | Tools run |
+|---|---|---|---|---|---|---|
+| Injected leakage | 1,000 | `will_default` leaks the target | 1/1 | NOT READY | 71 | 1/5 |
+| Class imbalance | 2,000 | 97% / 3% class split | 1/1 | READY | 97 | 2/5 |
+| Multiple issues | 1,600 | imbalance + leak + duplicates | 2/3 | NOT READY | 65 | 2/5 |
+| Complex / large | 12,000 | 8% positive class + derived leak | 1/2 | READY | 94 | 2/5 |
+| Clean control | 500 | none | no false positives | READY | 100 | 3/5 |
+
+Classification metrics over 25 (dataset × detector) pairs. Ground-truth positive means the dataset carries a defect that detector is meant to catch; predicted positive means it raised a critical or warning finding.
+
+| Metric | Agent mode | All-tools baseline |
+|---|---|---|
+| Precision | **1.000** | 0.538 |
+| Recall | 0.714 | 1.000 |
+| F1 | **0.833** | 0.700 |
+| False positive rate | **0.000** | 0.333 |
+| False negative rate | 0.286 | 0.000 |
+| Accuracy | **0.920** | 0.760 |
+| TP / FP / FN / TN | 5 / 0 / 2 / 18 | 7 / 6 / 0 / 12 |
+
+The headline trade-off: the agent runs **60% fewer checks** and converts a noisy exhaustive scan (precision 0.54, FPR 0.33) into a precise one (**precision 1.00, FPR 0.00**) — at the cost of recall, which drops to 0.714.
+
+Stated plainly, because the number is easy to misread: **critical retention against the baseline is 9.7%.** The agent's skipping is not free. Much of that gap is baseline noise rather than genuine misses — the baseline's own precision is 0.538 — but two expected detectors genuinely failed to fire, and that is a real limitation, not a rounding artifact.
+
+Reproduce with:
+
+```powershell
+cd backend
+python generate_test_datasets.py   # only needed once
+python benchmark.py
+```
+
+The harness snapshots and restores `agent/*.pkl` so repeated runs stay comparable — without that, the meta-learner would train on its own benchmark and the numbers would drift.
+
 ## Known rough edges
 
 Worth knowing before you build on this:
@@ -334,3 +372,5 @@ Worth knowing before you build on this:
 - **`agent/planner.py` is dead weight in the main path** — instantiated, but the strategy and goal engines make the real decisions.
 - **CORS is `*` on all `/api/*` routes**, and uploads are unauthenticated. Fine locally; tighten both before exposing this publicly.
 - **Silent target fallback.** A typo'd target column doesn't error — it audits against the last column instead. Check `targetColumn` in the report matches what you intended.
+- **Severity scoring is too lenient for prevalence-based defects.** A 97%/3% class split scores READY/97, and a dataset that was 99.96% duplicate rows scored READY/91. Both were detected — they were just filed as warnings worth −3 points each. Any defect defined by *how much* of the data it affects should escalate to critical past a threshold.
+- **Recall costs more than the skip rate suggests.** The learned skip threshold (0.55) is aggressive enough to skip detectors that would have caught injected defects — measured recall 0.714. Lowering the threshold trades precision for recall; the benchmark harness makes that trade measurable.

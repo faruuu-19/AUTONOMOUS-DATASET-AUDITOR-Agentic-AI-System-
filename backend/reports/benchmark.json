@@ -1,0 +1,2020 @@
+{
+  "rows": [
+    {
+      "name": "Injected leakage",
+      "defect": "'will_default' leaks the target",
+      "agent": {
+        "runtime": 0.052052974700927734,
+        "verdict": "NOT READY",
+        "score": 71,
+        "tools_executed": [
+          "leakage_detector"
+        ],
+        "tools_skipped": [
+          "bias_detector",
+          "spurious_detector",
+          "contamination_detector",
+          "feature_utility"
+        ],
+        "critical": 3,
+        "total_findings": 3,
+        "findings_by_tool": {
+          "leakage_detector": [
+            {
+              "type": "perfect_correlation",
+              "severity": "critical",
+              "feature": "will_default",
+              "message": "Feature \"will_default\" has near-perfect correlation (1.0000) with target",
+              "evidence": {
+                "correlation": 1.0
+              },
+              "tool": "leakage_detector"
+            },
+            {
+              "type": "identical_to_target",
+              "severity": "critical",
+              "feature": "will_default",
+              "message": "Feature \"will_default\" is identical to target column",
+              "evidence": {},
+              "tool": "leakage_detector"
+            },
+            {
+              "type": "linear_transformation",
+              "severity": "critical",
+              "feature": "will_default",
+              "message": "Feature \"will_default\" appears to be a linear transformation of target (R\u00b2=1.000000)",
+              "evidence": {
+                "r2": 1.0,
+                "coefficient": 1.0,
+                "intercept": 0.0
+              },
+              "tool": "leakage_detector"
+            }
+          ]
+        },
+        "rows": 1000,
+        "columns": 6
+      },
+      "baseline": {
+        "runtime": 4.259607315063477,
+        "findings_by_tool": {
+          "leakage_detector": [
+            {
+              "type": "perfect_correlation",
+              "severity": "critical",
+              "feature": "will_default",
+              "message": "Feature \"will_default\" has near-perfect correlation (1.0000) with target",
+              "evidence": {
+                "correlation": 1.0
+              }
+            },
+            {
+              "type": "identical_to_target",
+              "severity": "critical",
+              "feature": "will_default",
+              "message": "Feature \"will_default\" is identical to target column",
+              "evidence": {}
+            },
+            {
+              "type": "linear_transformation",
+              "severity": "critical",
+              "feature": "will_default",
+              "message": "Feature \"will_default\" appears to be a linear transformation of target (R\u00b2=1.000000)",
+              "evidence": {
+                "r2": 1.0,
+                "coefficient": 1.0,
+                "intercept": 0.0
+              }
+            }
+          ],
+          "contamination_detector": [],
+          "bias_detector": [
+            {
+              "type": "feature_distribution_bias",
+              "severity": "warning",
+              "feature": "credit_score",
+              "message": "Feature \"credit_score\" has significantly different distributions across classes",
+              "evidence": {
+                "p_value": 2.4602684199083744e-164,
+                "effect_size": 0.7468716274257696,
+                "test": "kruskal_wallis"
+              }
+            },
+            {
+              "type": "feature_distribution_bias",
+              "severity": "warning",
+              "feature": "will_default",
+              "message": "Feature \"will_default\" has significantly different distributions across classes",
+              "evidence": {
+                "p_value": 2.962306285466003e-219,
+                "effect_size": 0.9999999999999997,
+                "test": "kruskal_wallis"
+              }
+            }
+          ],
+          "spurious_detector": [
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "credit_score",
+              "message": "Single feature \"credit_score\" achieves 99.9% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.998998998998999,
+                "cv_scores": [
+                  1.0,
+                  0.996996996996997,
+                  1.0
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "will_default",
+              "message": "Single feature \"will_default\" achieves 100.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 1.0,
+                "cv_scores": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              }
+            },
+            {
+              "type": "simple_threshold_rule",
+              "severity": "warning",
+              "feature": "will_default",
+              "message": "Simple threshold rule on \"will_default\" achieves 100.0% accuracy",
+              "evidence": {
+                "accuracy": 1.0,
+                "threshold": 0.0,
+                "percentile": 25
+              }
+            },
+            {
+              "type": "top_features_dominate",
+              "severity": "warning",
+              "message": "Top 2 features account for 99.5% of importance - check for shortcuts",
+              "evidence": {
+                "top2_percentage": 99.47427122384212,
+                "num_features": 5
+              }
+            }
+          ],
+          "feature_utility": [
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "customer_id",
+              "message": "Feature \"customer_id\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.008186048435066429,
+                "normalized_mi": 0.01182571838975019
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "age",
+              "message": "Feature \"age\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            }
+          ]
+        },
+        "critical": 5,
+        "total_findings": 11
+      },
+      "eval": {
+        "skip_rate": 0.8,
+        "retention": 0.6,
+        "expected_tools": [
+          "leakage_detector"
+        ],
+        "detected_baseline": [
+          "leakage_detector"
+        ],
+        "detected_agent": [
+          "leakage_detector"
+        ],
+        "is_control": false,
+        "false_positives": 0
+      }
+    },
+    {
+      "name": "Class imbalance",
+      "defect": "97% / 3% class split",
+      "agent": {
+        "runtime": 0.14783143997192383,
+        "verdict": "READY",
+        "score": 97,
+        "tools_executed": [
+          "bias_detector",
+          "contamination_detector"
+        ],
+        "tools_skipped": [
+          "spurious_detector",
+          "feature_utility",
+          "leakage_detector"
+        ],
+        "critical": 0,
+        "total_findings": 1,
+        "findings_by_tool": {
+          "bias_detector": [
+            {
+              "type": "moderate_imbalance",
+              "severity": "warning",
+              "message": "Moderate class imbalance detected (ratio 32.3:1)",
+              "evidence": {
+                "imbalance_ratio": 32.333333333333336,
+                "class_distribution": {
+                  "0": 97.0,
+                  "1": 3.0
+                }
+              },
+              "tool": "bias_detector"
+            }
+          ]
+        },
+        "rows": 2000,
+        "columns": 6
+      },
+      "baseline": {
+        "runtime": 5.4719321727752686,
+        "findings_by_tool": {
+          "leakage_detector": [],
+          "contamination_detector": [],
+          "bias_detector": [
+            {
+              "type": "moderate_imbalance",
+              "severity": "warning",
+              "message": "Moderate class imbalance detected (ratio 32.3:1)",
+              "evidence": {
+                "imbalance_ratio": 32.333333333333336,
+                "class_distribution": {
+                  "0": 97.0,
+                  "1": 3.0
+                }
+              }
+            }
+          ],
+          "spurious_detector": [
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_1",
+              "message": "Single feature \"feature_1\" achieves 97.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9699999849924886,
+                "cv_scores": [
+                  0.9700149925037481,
+                  0.9700149925037481,
+                  0.96996996996997
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_2",
+              "message": "Single feature \"feature_2\" achieves 97.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9699999849924886,
+                "cv_scores": [
+                  0.9700149925037481,
+                  0.9700149925037481,
+                  0.96996996996997
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_3",
+              "message": "Single feature \"feature_3\" achieves 96.9% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9685007346176762,
+                "cv_scores": [
+                  0.9700149925037481,
+                  0.9655172413793104,
+                  0.96996996996997
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_4",
+              "message": "Single feature \"feature_4\" achieves 96.9% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9694994844919882,
+                "cv_scores": [
+                  0.9700149925037481,
+                  0.9700149925037481,
+                  0.9684684684684685
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_5",
+              "message": "Single feature \"feature_5\" achieves 97.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9699999849924886,
+                "cv_scores": [
+                  0.9700149925037481,
+                  0.9700149925037481,
+                  0.96996996996997
+                ]
+              }
+            }
+          ],
+          "feature_utility": [
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_1",
+              "message": "Feature \"feature_1\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_3",
+              "message": "Feature \"feature_3\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_4",
+              "message": "Feature \"feature_4\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_5",
+              "message": "Feature \"feature_5\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            }
+          ]
+        },
+        "critical": 5,
+        "total_findings": 10
+      },
+      "eval": {
+        "skip_rate": 0.6,
+        "retention": 0.0,
+        "expected_tools": [
+          "bias_detector"
+        ],
+        "detected_baseline": [
+          "bias_detector"
+        ],
+        "detected_agent": [
+          "bias_detector"
+        ],
+        "is_control": false,
+        "false_positives": 0
+      }
+    },
+    {
+      "name": "Multiple issues",
+      "defect": "imbalance + 'churn_probability' leak + duplicate rows",
+      "agent": {
+        "runtime": 0.09007048606872559,
+        "verdict": "NOT READY",
+        "score": 65,
+        "tools_executed": [
+          "leakage_detector",
+          "bias_detector"
+        ],
+        "tools_skipped": [
+          "spurious_detector",
+          "contamination_detector",
+          "feature_utility"
+        ],
+        "critical": 3,
+        "total_findings": 5,
+        "findings_by_tool": {
+          "leakage_detector": [
+            {
+              "type": "perfect_correlation",
+              "severity": "critical",
+              "feature": "churn_probability",
+              "message": "Feature \"churn_probability\" has near-perfect correlation (1.0000) with target",
+              "evidence": {
+                "correlation": 1.0
+              },
+              "tool": "leakage_detector"
+            },
+            {
+              "type": "identical_to_target",
+              "severity": "critical",
+              "feature": "churn_probability",
+              "message": "Feature \"churn_probability\" is identical to target column",
+              "evidence": {},
+              "tool": "leakage_detector"
+            },
+            {
+              "type": "linear_transformation",
+              "severity": "critical",
+              "feature": "churn_probability",
+              "message": "Feature \"churn_probability\" appears to be a linear transformation of target (R\u00b2=1.000000)",
+              "evidence": {
+                "r2": 1.0,
+                "coefficient": 1.0,
+                "intercept": 0.0
+              },
+              "tool": "leakage_detector"
+            }
+          ],
+          "bias_detector": [
+            {
+              "type": "moderate_imbalance",
+              "severity": "warning",
+              "message": "Moderate class imbalance detected (ratio 18.8:1)",
+              "evidence": {
+                "imbalance_ratio": 18.753086419753085,
+                "class_distribution": {
+                  "0": 94.9375,
+                  "1": 5.0625
+                }
+              },
+              "tool": "bias_detector"
+            },
+            {
+              "type": "feature_distribution_bias",
+              "severity": "warning",
+              "feature": "churn_probability",
+              "message": "Feature \"churn_probability\" has significantly different distributions across classes",
+              "evidence": {
+                "p_value": 0.0,
+                "effect_size": 1.0000000000000013,
+                "test": "kruskal_wallis"
+              },
+              "tool": "bias_detector"
+            }
+          ]
+        },
+        "rows": 1600,
+        "columns": 6
+      },
+      "baseline": {
+        "runtime": 4.645678281784058,
+        "findings_by_tool": {
+          "leakage_detector": [
+            {
+              "type": "perfect_correlation",
+              "severity": "critical",
+              "feature": "churn_probability",
+              "message": "Feature \"churn_probability\" has near-perfect correlation (1.0000) with target",
+              "evidence": {
+                "correlation": 1.0
+              }
+            },
+            {
+              "type": "identical_to_target",
+              "severity": "critical",
+              "feature": "churn_probability",
+              "message": "Feature \"churn_probability\" is identical to target column",
+              "evidence": {}
+            },
+            {
+              "type": "linear_transformation",
+              "severity": "critical",
+              "feature": "churn_probability",
+              "message": "Feature \"churn_probability\" appears to be a linear transformation of target (R\u00b2=1.000000)",
+              "evidence": {
+                "r2": 1.0,
+                "coefficient": 1.0,
+                "intercept": 0.0
+              }
+            }
+          ],
+          "contamination_detector": [
+            {
+              "type": "exact_duplicates_train",
+              "severity": "warning",
+              "message": "Found 100 exact duplicate rows in training set (6.25%)",
+              "evidence": {
+                "count": 100,
+                "percentage": 6.25
+              }
+            }
+          ],
+          "bias_detector": [
+            {
+              "type": "moderate_imbalance",
+              "severity": "warning",
+              "message": "Moderate class imbalance detected (ratio 18.8:1)",
+              "evidence": {
+                "imbalance_ratio": 18.753086419753085,
+                "class_distribution": {
+                  "0": 94.9375,
+                  "1": 5.0625
+                }
+              }
+            },
+            {
+              "type": "feature_distribution_bias",
+              "severity": "warning",
+              "feature": "churn_probability",
+              "message": "Feature \"churn_probability\" has significantly different distributions across classes",
+              "evidence": {
+                "p_value": 0.0,
+                "effect_size": 1.0000000000000013,
+                "test": "kruskal_wallis"
+              }
+            }
+          ],
+          "spurious_detector": [
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "user_id",
+              "message": "Single feature \"user_id\" achieves 94.9% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9493749604738917,
+                "cv_scores": [
+                  0.949438202247191,
+                  0.949343339587242,
+                  0.949343339587242
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_A",
+              "message": "Single feature \"feature_A\" achieves 94.9% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9493749604738917,
+                "cv_scores": [
+                  0.949438202247191,
+                  0.949343339587242,
+                  0.949343339587242
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_B",
+              "message": "Single feature \"feature_B\" achieves 94.9% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9493749604738917,
+                "cv_scores": [
+                  0.949438202247191,
+                  0.949343339587242,
+                  0.949343339587242
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_C",
+              "message": "Single feature \"feature_C\" achieves 94.9% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9493749604738917,
+                "cv_scores": [
+                  0.949438202247191,
+                  0.949343339587242,
+                  0.949343339587242
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "churn_probability",
+              "message": "Single feature \"churn_probability\" achieves 100.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 1.0,
+                "cv_scores": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              }
+            },
+            {
+              "type": "simple_threshold_rule",
+              "severity": "warning",
+              "feature": "churn_probability",
+              "message": "Simple threshold rule on \"churn_probability\" achieves 100.0% accuracy",
+              "evidence": {
+                "accuracy": 1.0,
+                "threshold": 0.0,
+                "percentile": 25
+              }
+            },
+            {
+              "type": "concentrated_importance",
+              "severity": "warning",
+              "feature": "churn_probability",
+              "message": "Feature \"churn_probability\" accounts for 94.4% of importance - unusually concentrated",
+              "evidence": {
+                "importance_percentage": 94.35624344433185,
+                "feature_importances": {
+                  "user_id": 0.016029384187836213,
+                  "feature_A": 0.011763800872832403,
+                  "feature_B": 0.010442775357579408,
+                  "feature_C": 0.018201605138433483,
+                  "churn_probability": 0.9435624344433186
+                }
+              }
+            },
+            {
+              "type": "top_features_dominate",
+              "severity": "warning",
+              "message": "Top 2 features account for 96.2% of importance - check for shortcuts",
+              "evidence": {
+                "top2_percentage": 96.1764039581752,
+                "num_features": 5
+              }
+            }
+          ],
+          "feature_utility": [
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "user_id",
+              "message": "Feature \"user_id\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.006938035609568072,
+                "normalized_mi": 0.034575290111116784
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_A",
+              "message": "Feature \"feature_A\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.008247689499692346,
+                "normalized_mi": 0.04110187281325118
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_B",
+              "message": "Feature \"feature_B\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_C",
+              "message": "Feature \"feature_C\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.005318295157792141,
+                "normalized_mi": 0.026503409369018568
+              }
+            }
+          ]
+        },
+        "critical": 8,
+        "total_findings": 18
+      },
+      "eval": {
+        "skip_rate": 0.6,
+        "retention": 0.375,
+        "expected_tools": [
+          "bias_detector",
+          "leakage_detector",
+          "contamination_detector"
+        ],
+        "detected_baseline": [
+          "bias_detector",
+          "leakage_detector",
+          "contamination_detector"
+        ],
+        "detected_agent": [
+          "bias_detector",
+          "leakage_detector"
+        ],
+        "is_control": false,
+        "false_positives": 0
+      }
+    },
+    {
+      "name": "Complex / large",
+      "defect": "8% positive class + derived 'future_flag' leak",
+      "agent": {
+        "runtime": 2.2897756099700928,
+        "verdict": "READY",
+        "score": 94,
+        "tools_executed": [
+          "bias_detector",
+          "contamination_detector"
+        ],
+        "tools_skipped": [
+          "spurious_detector",
+          "feature_utility",
+          "leakage_detector"
+        ],
+        "critical": 0,
+        "total_findings": 2,
+        "findings_by_tool": {
+          "bias_detector": [
+            {
+              "type": "moderate_imbalance",
+              "severity": "warning",
+              "message": "Moderate class imbalance detected (ratio 11.5:1)",
+              "evidence": {
+                "imbalance_ratio": 11.5,
+                "class_distribution": {
+                  "0": 92.0,
+                  "1": 8.0
+                }
+              },
+              "tool": "bias_detector"
+            },
+            {
+              "type": "feature_distribution_bias",
+              "severity": "warning",
+              "feature": "future_flag",
+              "message": "Feature \"future_flag\" has significantly different distributions across classes",
+              "evidence": {
+                "p_value": 0.0,
+                "effect_size": 0.5712039008375623,
+                "test": "kruskal_wallis"
+              },
+              "tool": "bias_detector"
+            }
+          ]
+        },
+        "rows": 12000,
+        "columns": 45
+      },
+      "baseline": {
+        "runtime": 153.3196177482605,
+        "findings_by_tool": {
+          "leakage_detector": [
+            {
+              "type": "suspicious_name",
+              "severity": "warning",
+              "feature": "future_flag",
+              "message": "Feature \"future_flag\" has suspicious name containing \"future\"",
+              "evidence": {
+                "keyword": "future"
+              }
+            }
+          ],
+          "contamination_detector": [],
+          "bias_detector": [
+            {
+              "type": "moderate_imbalance",
+              "severity": "warning",
+              "message": "Moderate class imbalance detected (ratio 11.5:1)",
+              "evidence": {
+                "imbalance_ratio": 11.5,
+                "class_distribution": {
+                  "0": 92.0,
+                  "1": 8.0
+                }
+              }
+            },
+            {
+              "type": "feature_distribution_bias",
+              "severity": "warning",
+              "feature": "future_flag",
+              "message": "Feature \"future_flag\" has significantly different distributions across classes",
+              "evidence": {
+                "p_value": 0.0,
+                "effect_size": 0.5712039008375623,
+                "test": "kruskal_wallis"
+              }
+            }
+          ],
+          "spurious_detector": [
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_0",
+              "message": "Single feature \"feature_0\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.91979998839716,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9192919291929192
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_1",
+              "message": "Single feature \"feature_1\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_2",
+              "message": "Single feature \"feature_2\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_3",
+              "message": "Single feature \"feature_3\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_4",
+              "message": "Single feature \"feature_4\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_5",
+              "message": "Single feature \"feature_5\" achieves 91.9% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9192999983861614,
+                "cv_scores": [
+                  0.9193161367726455,
+                  0.9201920192019202,
+                  0.9183918391839184
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_6",
+              "message": "Single feature \"feature_6\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9198999983981602,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9198919891989199,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_7",
+              "message": "Single feature \"feature_7\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_8",
+              "message": "Single feature \"feature_8\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_9",
+              "message": "Single feature \"feature_9\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_10",
+              "message": "Single feature \"feature_10\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_11",
+              "message": "Single feature \"feature_11\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_12",
+              "message": "Single feature \"feature_12\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9198000183941609,
+                "cv_scores": [
+                  0.9196160767846431,
+                  0.9198919891989199,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_13",
+              "message": "Single feature \"feature_13\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9198999983981602,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9195919591959196
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_14",
+              "message": "Single feature \"feature_14\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.91979998839716,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9195919591959196,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_15",
+              "message": "Single feature \"feature_15\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_16",
+              "message": "Single feature \"feature_16\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_17",
+              "message": "Single feature \"feature_17\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_18",
+              "message": "Single feature \"feature_18\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_19",
+              "message": "Single feature \"feature_19\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_20",
+              "message": "Single feature \"feature_20\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_21",
+              "message": "Single feature \"feature_21\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9195001083791642,
+                "cv_scores": [
+                  0.9184163167366527,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_22",
+              "message": "Single feature \"feature_22\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9197000083931609,
+                "cv_scores": [
+                  0.9196160767846431,
+                  0.9195919591959196,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_23",
+              "message": "Single feature \"feature_23\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_24",
+              "message": "Single feature \"feature_24\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_25",
+              "message": "Single feature \"feature_25\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_26",
+              "message": "Single feature \"feature_26\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9198000483911618,
+                "cv_scores": [
+                  0.9193161367726455,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_27",
+              "message": "Single feature \"feature_27\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.91979998839716,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9195919591959196,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_28",
+              "message": "Single feature \"feature_28\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_29",
+              "message": "Single feature \"feature_29\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9198999983981602,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9198919891989199,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_30",
+              "message": "Single feature \"feature_30\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_31",
+              "message": "Single feature \"feature_31\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9198999983981602,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9198919891989199,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_32",
+              "message": "Single feature \"feature_32\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9195999683951599,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9195919591959196,
+                  0.9192919291929192
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_33",
+              "message": "Single feature \"feature_33\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9198000483911618,
+                "cv_scores": [
+                  0.9193161367726455,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_34",
+              "message": "Single feature \"feature_34\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_35",
+              "message": "Single feature \"feature_35\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_36",
+              "message": "Single feature \"feature_36\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.91979998839716,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9195919591959196,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_37",
+              "message": "Single feature \"feature_37\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9198000483911618,
+                "cv_scores": [
+                  0.9193161367726455,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_38",
+              "message": "Single feature \"feature_38\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.91979998839716,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9195919591959196,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "feature_39",
+              "message": "Single feature \"feature_39\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.91979998839716,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9198919891989199,
+                  0.9195919591959196
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "year",
+              "message": "Single feature \"year\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "month",
+              "message": "Single feature \"month\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9200000083991603,
+                "cv_scores": [
+                  0.9199160167966407,
+                  0.9201920192019202,
+                  0.9198919891989199
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "transaction_id",
+              "message": "Single feature \"transaction_id\" achieves 92.0% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9197000383901618,
+                "cv_scores": [
+                  0.9193161367726455,
+                  0.9201920192019202,
+                  0.9195919591959196
+                ]
+              }
+            },
+            {
+              "type": "single_feature_dominance",
+              "severity": "critical",
+              "feature": "future_flag",
+              "message": "Single feature \"future_flag\" achieves 95.2% accuracy - potential shortcut learning",
+              "evidence": {
+                "accuracy": 0.9524996890810856,
+                "cv_scores": [
+                  0.9556088782243551,
+                  0.9528952895289529,
+                  0.948994899489949
+                ]
+              }
+            },
+            {
+              "type": "simple_threshold_rule",
+              "severity": "warning",
+              "feature": "future_flag",
+              "message": "Simple threshold rule on \"future_flag\" achieves 95.2% accuracy",
+              "evidence": {
+                "accuracy": 0.9525,
+                "threshold": 0.0,
+                "percentile": 25
+              }
+            }
+          ],
+          "feature_utility": [
+            {
+              "type": "low_variance_numeric",
+              "severity": "warning",
+              "feature": "year",
+              "message": "Feature \"year\" has very low variance (CV=0.0006)",
+              "evidence": {
+                "coefficient_of_variation": 0.0005526880545248513,
+                "mean": 2021.4863333333333,
+                "std": 1.117251348818575
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_0",
+              "message": "Feature \"feature_0\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_1",
+              "message": "Feature \"feature_1\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0047352010215462315,
+                "normalized_mi": 0.02719057218008342
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_2",
+              "message": "Feature \"feature_2\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.002325124293832914,
+                "normalized_mi": 0.01335137825225528
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_3",
+              "message": "Feature \"feature_3\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_4",
+              "message": "Feature \"feature_4\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_5",
+              "message": "Feature \"feature_5\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0008662850159146807,
+                "normalized_mi": 0.004974400272886675
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_6",
+              "message": "Feature \"feature_6\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0009511024711339466,
+                "normalized_mi": 0.005461440871116097
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_7",
+              "message": "Feature \"feature_7\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0005115607602301786,
+                "normalized_mi": 0.0029374950951913275
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_8",
+              "message": "Feature \"feature_8\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.005622423633163232,
+                "normalized_mi": 0.03228520076104632
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_9",
+              "message": "Feature \"feature_9\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0009611277801775397,
+                "normalized_mi": 0.005519008414275743
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_10",
+              "message": "Feature \"feature_10\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_11",
+              "message": "Feature \"feature_11\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.00158115649992574,
+                "normalized_mi": 0.009079350537308364
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_12",
+              "message": "Feature \"feature_12\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.002855188210536097,
+                "normalized_mi": 0.016395122566719312
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_13",
+              "message": "Feature \"feature_13\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.004564423312680477,
+                "normalized_mi": 0.026209928782150702
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_14",
+              "message": "Feature \"feature_14\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.00022633266325855494,
+                "normalized_mi": 0.0012996522405362824
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_15",
+              "message": "Feature \"feature_15\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0011709396515156012,
+                "normalized_mi": 0.006723794611503133
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_16",
+              "message": "Feature \"feature_16\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_17",
+              "message": "Feature \"feature_17\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_18",
+              "message": "Feature \"feature_18\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.002043590203302248,
+                "normalized_mi": 0.011734747200079056
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_19",
+              "message": "Feature \"feature_19\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0031923815138339418,
+                "normalized_mi": 0.018331361136157475
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_20",
+              "message": "Feature \"feature_20\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_21",
+              "message": "Feature \"feature_21\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_22",
+              "message": "Feature \"feature_22\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.00045693357052756234,
+                "normalized_mi": 0.002623813682755943
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_23",
+              "message": "Feature \"feature_23\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_24",
+              "message": "Feature \"feature_24\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_25",
+              "message": "Feature \"feature_25\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_26",
+              "message": "Feature \"feature_26\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_27",
+              "message": "Feature \"feature_27\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_28",
+              "message": "Feature \"feature_28\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.002319702546224711,
+                "normalized_mi": 0.01332024537763977
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_29",
+              "message": "Feature \"feature_29\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_30",
+              "message": "Feature \"feature_30\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_31",
+              "message": "Feature \"feature_31\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_32",
+              "message": "Feature \"feature_32\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.001514325065423705,
+                "normalized_mi": 0.008695589650398286
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_33",
+              "message": "Feature \"feature_33\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0006501433173466964,
+                "normalized_mi": 0.003733266806895082
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_34",
+              "message": "Feature \"feature_34\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_35",
+              "message": "Feature \"feature_35\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.001342112533537776,
+                "normalized_mi": 0.0077067071811530346
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_36",
+              "message": "Feature \"feature_36\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_37",
+              "message": "Feature \"feature_37\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_38",
+              "message": "Feature \"feature_38\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0023148810090181104,
+                "normalized_mi": 0.013292559043978643
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "feature_39",
+              "message": "Feature \"feature_39\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.002577746045278273,
+                "normalized_mi": 0.014801988255015235
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "year",
+              "message": "Feature \"year\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "month",
+              "message": "Feature \"month\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0030736488593523514,
+                "normalized_mi": 0.017649571958227205
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "transaction_id",
+              "message": "Feature \"transaction_id\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            }
+          ]
+        },
+        "critical": 44,
+        "total_findings": 92
+      },
+      "eval": {
+        "skip_rate": 0.6,
+        "retention": 0.0,
+        "expected_tools": [
+          "bias_detector",
+          "leakage_detector"
+        ],
+        "detected_baseline": [
+          "bias_detector",
+          "leakage_detector"
+        ],
+        "detected_agent": [
+          "bias_detector"
+        ],
+        "is_control": false,
+        "false_positives": 0
+      }
+    },
+    {
+      "name": "Clean control",
+      "defect": "none (control)",
+      "agent": {
+        "runtime": 0.05043530464172363,
+        "verdict": "READY",
+        "score": 100,
+        "tools_executed": [
+          "leakage_detector",
+          "contamination_detector",
+          "bias_detector"
+        ],
+        "tools_skipped": [
+          "spurious_detector",
+          "feature_utility"
+        ],
+        "critical": 0,
+        "total_findings": 0,
+        "findings_by_tool": {},
+        "rows": 500,
+        "columns": 4
+      },
+      "baseline": {
+        "runtime": 2.3303632736206055,
+        "findings_by_tool": {
+          "leakage_detector": [],
+          "contamination_detector": [],
+          "bias_detector": [],
+          "spurious_detector": [],
+          "feature_utility": [
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "height",
+              "message": "Feature \"height\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "weight",
+              "message": "Feature \"weight\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            },
+            {
+              "type": "low_information_feature",
+              "severity": "info",
+              "feature": "age",
+              "message": "Feature \"age\" has very low mutual information with target",
+              "evidence": {
+                "mutual_information": 0.0,
+                "normalized_mi": 0.0
+              }
+            }
+          ]
+        },
+        "critical": 0,
+        "total_findings": 3
+      },
+      "eval": {
+        "skip_rate": 0.4,
+        "retention": null,
+        "expected_tools": [],
+        "detected_baseline": [],
+        "detected_agent": [],
+        "is_control": true,
+        "false_positives": 0
+      }
+    }
+  ],
+  "totals": {
+    "expected": 7,
+    "detected": 5,
+    "recall": 0.7142857142857143,
+    "controls": 1,
+    "false_positives": 0,
+    "skip_rate": 0.6,
+    "critical_retention": 0.0967741935483871,
+    "median_runtime": 0.09007048606872559,
+    "min_runtime": 0.05043530464172363,
+    "max_runtime": 2.2897756099700928,
+    "max_rows": 12000,
+    "confusion_agent": {
+      "tp": 5,
+      "fp": 0,
+      "fn": 2,
+      "tn": 18,
+      "precision": 1.0,
+      "recall": 0.7142857142857143,
+      "f1": 0.8333333333333333,
+      "fpr": 0.0,
+      "fnr": 0.2857142857142857,
+      "accuracy": 0.92
+    },
+    "confusion_baseline": {
+      "tp": 7,
+      "fp": 6,
+      "fn": 0,
+      "tn": 12,
+      "precision": 0.5384615384615384,
+      "recall": 1.0,
+      "f1": 0.7000000000000001,
+      "fpr": 0.3333333333333333,
+      "fnr": 0.0,
+      "accuracy": 0.76
+    }
+  }
+}
