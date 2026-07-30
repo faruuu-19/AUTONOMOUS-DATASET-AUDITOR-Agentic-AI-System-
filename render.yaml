@@ -2,6 +2,6 @@ services:
   - type: web
     name: autonomous-data-audit
     runtime: docker
-    plan: starter
+    plan: free
     autoDeploy: true
     healthCheckPath: /api/health

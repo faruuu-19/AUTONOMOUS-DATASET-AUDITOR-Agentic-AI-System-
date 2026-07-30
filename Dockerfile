@@ -19,4 +19,4 @@ COPY --from=frontend-build /app/frontend/dist/public /app/frontend/dist/public
 ENV PORT=10000
 EXPOSE 10000
 
-CMD ["sh", "-c", "gunicorn -w 2 -b 0.0.0.0:${PORT:-10000} api_server:app"]
+CMD ["sh", "-c", "gunicorn -w 1 --timeout 600 -b 0.0.0.0:${PORT:-10000} api_server:app"]
