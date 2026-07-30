@@ -1,8 +1,8 @@
 ﻿node_modules/
-dist/
 __pycache__/
 *.pyc
 backend/data/uploads/
 backend/reports/jobs/
 backend/temp_dataset.csv
 backend/temp_audit_dataset.csv
+frontend/.local/

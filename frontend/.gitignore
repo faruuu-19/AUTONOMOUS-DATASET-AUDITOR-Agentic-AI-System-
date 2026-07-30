@@ -1,5 +1,8 @@
 node_modules
-dist
+# dist/public is committed on purpose: Hugging Face Spaces has no Node build
+# step, so the built frontend must ship with the repo.
+dist/*
+!dist/public
 .DS_Store
 server/public
 vite.config.ts.*
