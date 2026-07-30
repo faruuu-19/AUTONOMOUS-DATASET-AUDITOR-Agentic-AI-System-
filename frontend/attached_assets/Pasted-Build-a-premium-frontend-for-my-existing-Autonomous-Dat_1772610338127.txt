@@ -1,0 +1,129 @@
+Build a premium frontend for my existing “Autonomous Dataset Auditor” with strict feature parity to current app behavior, then elevate the UI/UX significantly.
+
+Tech stack:
+- React + TypeScript + Vite + Tailwind (preferred)
+- Componentized architecture
+- Frontend-only (backend APIs will be wired by us)
+
+Critical requirement:
+- Do NOT drop any current functionality.
+- Match current behavior exactly first, then improve visuals/interactions.
+
+Product context:
+This app audits tabular datasets before modeling and runs an autonomous multi-tool pipeline:
+- Leakage Detector
+- Train-Test Contamination Detector
+- Bias Detector
+- Spurious Correlation Detector
+- Feature Utility Detector
+It also uses planner/critic/meta-learning style stages and can trigger adaptive re-checks when confidence is low.
+
+Design direction (inspired by attached image):
+- Dark, technical, futuristic dashboard aesthetic
+- Neon cyan/teal + cool blue accents
+- Subtle glow, glassmorphism, gradient strokes, terminal/code-panel vibe
+- High-contrast typography with strong hierarchy
+- Elegant motion (staggered reveals, progress pulse, scan-line accents), not gimmicky
+
+Theme tokens (use CSS variables):
+- --bg: #02070D
+- --bg-soft: #06111A
+- --panel: #0A1722
+- --panel-2: #0F1F2D
+- --text: #EAF2FF
+- --text-dim: #9FB3C8
+- --accent-cyan: #00D1FF
+- --accent-teal: #00E5A8
+- --accent-blue: #2EA3FF
+- --critical: #FF4D6D
+- --warning: #FFB020
+- --success: #2ED47A
+
+Exact feature parity checklist (must implement):
+1) Upload/config flow
+- CSV upload (drag-drop + browse)
+- Show loaded dataset shape (rows/columns)
+- Target column selector from parsed columns
+- Data preview table (first rows)
+
+2) Audit run flow
+- “Start Audit” action
+- In-run progress bar and current tool status
+- Per-tool live detail panel showing step-by-step messages
+- Tool runtime + findings summary per tool
+- Skip handling with visible skip reason
+- Large dataset optimization notice (adaptive sampling messaging)
+
+3) Agent/critic behavior visibility
+- Show pipeline stages (planner, detectors, critic, recheck, report generation)
+- Critic confidence per stage/tool
+- Show “needs recheck” state when confidence low
+- Adaptive re-check UI messages + additional findings surfaced
+
+4) Post-run gated results flow
+- After completion, show intermediate state:
+  “Audit Complete” + centered “View Audit Results” button
+- Show quick summary preview before full results
+
+5) Full results dashboard
+- Verdict card: READY / NEEDS ATTENTION / NOT READY
+- Readiness score
+- Metrics: total findings, critical, warning, confidence
+- Findings distribution chart
+- Tool execution timeline chart
+- Tabs:
+  - Findings (grouped by severity: critical, warning, info; expandable details + evidence JSON)
+  - Recommendations (priority styling for critical)
+  - Raw Data (full JSON report view)
+
+6) Export actions
+- Download JSON report
+- Download findings CSV
+
+7) States and UX quality
+- Empty state (before upload)
+- Loading/progress states
+- Error states (parse failures, API failures)
+- Success states
+- Responsive desktop + mobile
+- Accessible contrast, keyboard focus states
+
+Architecture requirements:
+- Reusable primitives: Button, Card, Badge, Tabs, Accordion, Progress, Table, Toast, Modal
+- Organized folders:
+  - src/components
+  - src/pages (or app routes)
+  - src/services
+  - src/hooks
+  - src/types
+  - src/theme
+  - src/mocks
+- Strong TypeScript typing for:
+  - AuditReport
+  - Finding
+  - Summary
+  - Recommendation
+  - PipelineStage
+  - CriticAssessment
+  - ExecutionTimelineItem
+
+Backend integration readiness:
+Create an API layer with mock implementations now and clean swap points:
+- POST /api/audit/start
+- GET /api/audit/:id/status
+- GET /api/audit/:id/report
+- GET /api/audit/:id/findings.csv
+
+Deliverables:
+- Fully runnable frontend project
+- Realistic seeded mock data that demonstrates all states (clean, warning-heavy, critical, recheck-triggered)
+- README with:
+  - local run steps
+  - environment variables
+  - where to plug backend endpoints
+  - feature parity checklist mapping
+
+Non-negotiables:
+- Premium, distinctive visual identity (not generic dashboard template)
+- Preserve all current app functionality and flow exactly
+- Then enhance look/feel and interaction quality on top

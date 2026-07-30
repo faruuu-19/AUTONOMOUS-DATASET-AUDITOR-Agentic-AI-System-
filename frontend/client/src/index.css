@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --font-display: 'Outfit', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Futuristic Dark Theme - Base */
+    --background: 213 73% 3%; /* #02070D */
+    --foreground: 217 100% 96%; /* #EAF2FF */
+
+    /* Panels and Cards */
+    --card: 208 55% 9%; /* #0A1722 */
+    --card-foreground: 217 100% 96%;
+    
+    --popover: 208 55% 9%;
+    --popover-foreground: 217 100% 96%;
+
+    /* Neon Accents */
+    --primary: 191 100% 50%; /* #00D1FF Cyan */
+    --primary-foreground: 213 73% 3%;
+
+    --secondary: 206 100% 59%; /* #2EA3FF Blue */
+    --secondary-foreground: 217 100% 96%;
+
+    --muted: 208 50% 12%; /* #0F1F2D */
+    --muted-foreground: 211 29% 70%; /* #9FB3C8 */
+
+    --accent: 164 100% 45%; /* #00E5A8 Teal */
+    --accent-foreground: 213 73% 3%;
+
+    /* Status Colors */
+    --destructive: 349 100% 65%; /* #FF4D6D Critical */
+    --destructive-foreground: 217 100% 96%;
+
+    --warning: 39 100% 56%; /* #FFB020 Warning */
+    --warning-foreground: 213 73% 3%;
+
+    --success: 147 65% 51%; /* #2ED47A Ready */
+    --success-foreground: 213 73% 3%;
+
+    --border: 208 50% 12%; /* #0F1F2D */
+    --input: 208 50% 12%;
+    --ring: 191 100% 50%;
+
+    --radius: 0.75rem;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-primary/30 selection:text-primary-foreground;
+    font-family: var(--font-sans);
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(0, 209, 255, 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 85% 30%, rgba(0, 229, 168, 0.03) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply tracking-tight;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-card/60 backdrop-blur-xl border border-white/5 shadow-2xl shadow-black/50;
+  }
+  
+  .glass-panel-hover {
+    @apply hover:bg-card/80 hover:border-white/10 hover:shadow-primary/5 transition-all duration-300;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 4px hsl(var(--foreground) / 0.22);
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 10px -6px hsl(var(--primary) / 0.3);
+  }
+
+  .glow-teal {
+    box-shadow: 0 0 10px -6px hsl(var(--accent) / 0.28);
+  }
+
+  .glow-warning {
+    box-shadow: 0 0 10px -6px hsl(var(--warning) / 0.3);
+  }
+
+  .glow-destructive {
+    box-shadow: 0 0 10px -6px hsl(var(--destructive) / 0.28);
+  }
+
+  .scanline {
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(0deg, transparent 0%, rgba(0, 209, 255, 0.08) 50%, transparent 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: scan 6s linear infinite;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  @keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(1000%); }
+  }
+
+  /* Custom Scrollbar for Terminal */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background)); 
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted)); 
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.5); 
+  }
+}

@@ -1,0 +1,22 @@
+type,severity,feature,message,evidence,tool
+perfect_correlation,critical,leaked_feature,"Feature ""leaked_feature"" has near-perfect correlation (1.0000) with target",{'correlation': 1.0},leakage_detector
+identical_to_target,critical,leaked_feature,"Feature ""leaked_feature"" is identical to target column",{},leakage_detector
+linear_transformation,critical,leaked_feature,"Feature ""leaked_feature"" appears to be a linear transformation of target (R²=1.000000)","{'r2': 1.0, 'coefficient': 1.0, 'intercept': 0.0}",leakage_detector
+moderate_imbalance,warning,,Moderate class imbalance detected (ratio 19.0:1),"{'imbalance_ratio': 19.0, 'class_distribution': {0: 95.0, 1: 5.0}}",bias_detector
+feature_distribution_bias,warning,leaked_feature,"Feature ""leaked_feature"" has significantly different distributions across classes","{'p_value': 3.451890018846385e-45, 'effect_size': 0.9999999999999993, 'test': 'kruskal_wallis'}",bias_detector
+small_class_size,warning,,Smallest class has only 10 samples,"{'min_class_size': 10, 'class_distribution': {0: 190, 1: 10}}",bias_detector
+single_feature_dominance,critical,age,"Single feature ""age"" achieves 93.5% accuracy - potential shortcut learning","{'accuracy': 0.9348710990502035, 'cv_scores': [0.9552238805970149, 0.9402985074626866, 0.9090909090909091]}",spurious_detector
+single_feature_dominance,critical,income,"Single feature ""income"" achieves 94.0% accuracy - potential shortcut learning","{'accuracy': 0.9400723654454998, 'cv_scores': [0.9402985074626866, 0.9253731343283582, 0.9545454545454546]}",spurious_detector
+single_feature_dominance,critical,credit_score,"Single feature ""credit_score"" achieves 94.0% accuracy - potential shortcut learning","{'accuracy': 0.9399969847731042, 'cv_scores': [0.9402985074626866, 0.9402985074626866, 0.9393939393939394]}",spurious_detector
+single_feature_dominance,critical,leaked_feature,"Single feature ""leaked_feature"" achieves 100.0% accuracy - potential shortcut learning","{'accuracy': 1.0, 'cv_scores': [1.0, 1.0, 1.0]}",spurious_detector
+single_feature_dominance,critical,constant_col,"Single feature ""constant_col"" achieves 95.0% accuracy - potential shortcut learning","{'accuracy': 0.9500226142017186, 'cv_scores': [0.9552238805970149, 0.9402985074626866, 0.9545454545454546]}",spurious_detector
+simple_threshold_rule,warning,leaked_feature,"Simple threshold rule on ""leaked_feature"" achieves 100.0% accuracy","{'accuracy': 1.0, 'threshold': 0.0, 'percentile': 25}",spurious_detector
+simple_threshold_rule,warning,constant_col,"Simple threshold rule on ""constant_col"" achieves 95.0% accuracy","{'accuracy': 0.95, 'threshold': 1.0, 'percentile': 25}",spurious_detector
+concentrated_importance,warning,leaked_feature,"Feature ""leaked_feature"" accounts for 82.2% of importance - unusually concentrated","{'importance_percentage': 82.19668253752003, 'feature_importances': {'age': 0.02999141670429116, 'income': 0.0743748711084653, 'credit_score': 0.07366688681204318, 'leaked_feature': 0.8219668253752004, 'constant_col': 0.0}}",spurious_detector
+unstable_predictor,warning,credit_score,"Feature ""credit_score"" has low variance (CV=0.0706) despite high accuracy - may not generalize",{'coefficient_variation': 0.07060901570957524},spurious_detector
+unstable_predictor,warning,constant_col,"Feature ""constant_col"" has low variance (CV=0.0000) despite high accuracy - may not generalize",{'coefficient_variation': 0.0},spurious_detector
+constant_feature,critical,constant_col,"Feature ""constant_col"" has only one unique value - provides no information","{'unique_values': 1, 'constant_value': '1'}",feature_utility
+low_variance_numeric,warning,constant_col,"Feature ""constant_col"" has very low variance (CV=0.0000)","{'coefficient_of_variation': 0.0, 'mean': 1.0, 'std': 0.0}",feature_utility
+low_information_feature,info,age,"Feature ""age"" has very low mutual information with target","{'mutual_information': 0.0, 'normalized_mi': 0.0}",feature_utility
+low_information_feature,info,income,"Feature ""income"" has very low mutual information with target","{'mutual_information': 0.007262016024735862, 'normalized_mi': 0.036119194121456526}",feature_utility
+low_information_feature,info,credit_score,"Feature ""credit_score"" has very low mutual information with target","{'mutual_information': 0.0, 'normalized_mi': 0.0}",feature_utility

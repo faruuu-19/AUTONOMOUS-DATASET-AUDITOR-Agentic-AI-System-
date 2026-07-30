@@ -1,0 +1,260 @@
+{
+  "test_date": "2026-01-29T13:50:15.861231",
+  "results": [
+    {
+      "filename": "data_leakage_test.csv",
+      "dataset_size": 1000,
+      "num_features": 6,
+      "target_column": "default",
+      "execution_time": 0.08013081550598145,
+      "tools_available": 5,
+      "tools_selected": 5,
+      "tools_executed": 1,
+      "tools_skipped": [
+        "spurious_detector",
+        "feature_utility",
+        "bias_detector",
+        "contamination_detector"
+      ],
+      "tool_order": [
+        "leakage_detector"
+      ],
+      "complexity_score": 0.1,
+      "class_balance": 0.8832391713747646,
+      "has_temporal": false,
+      "has_id": true,
+      "primary_goal": "quick_validation",
+      "goal_achieved": false,
+      "goal_progress": 0.3333333333333333,
+      "time_efficiency": 0.0002733866373697917,
+      "strategy_changes": 2,
+      "verdict": "NOT READY",
+      "readiness_score": 71,
+      "critical_count": 3,
+      "warning_count": 0,
+      "learning_stats": {
+        "total_audits": 1,
+        "learning_active": true,
+        "tool_usage_count": {
+          "leakage_detector": 1
+        },
+        "avg_tool_effectiveness": {
+          "leakage_detector": 30.0
+        },
+        "unique_dataset_profiles": 1
+      },
+      "validation_score": 0.5
+    },
+    {
+      "filename": "class_imbalance_test.csv",
+      "dataset_size": 2000,
+      "num_features": 6,
+      "target_column": "target",
+      "execution_time": 0.13251328468322754,
+      "tools_available": 5,
+      "tools_selected": 5,
+      "tools_executed": 3,
+      "tools_skipped": [
+        "spurious_detector",
+        "feature_utility"
+      ],
+      "tool_order": [
+        "bias_detector",
+        "contamination_detector",
+        "leakage_detector"
+      ],
+      "complexity_score": 0.2,
+      "class_balance": 0.030927835051546393,
+      "has_temporal": false,
+      "has_id": false,
+      "primary_goal": "quick_validation",
+      "goal_achieved": false,
+      "goal_progress": 0.6666666666666666,
+      "time_efficiency": 0.0009068648020426432,
+      "strategy_changes": 1,
+      "verdict": "READY",
+      "readiness_score": 97,
+      "critical_count": 0,
+      "warning_count": 1,
+      "learning_stats": {
+        "total_audits": 2,
+        "learning_active": true,
+        "tool_usage_count": {
+          "leakage_detector": 2,
+          "bias_detector": 1,
+          "contamination_detector": 1
+        },
+        "avg_tool_effectiveness": {
+          "leakage_detector": 15.0,
+          "bias_detector": 0.0,
+          "contamination_detector": 0.0
+        },
+        "unique_dataset_profiles": 2
+      },
+      "validation_score": 0.5
+    },
+    {
+      "filename": "clean_simple_test.csv",
+      "dataset_size": 500,
+      "num_features": 4,
+      "target_column": "category",
+      "execution_time": 0.15881752967834473,
+      "tools_available": 5,
+      "tools_selected": 5,
+      "tools_executed": 3,
+      "tools_skipped": [
+        "spurious_detector",
+        "bias_detector"
+      ],
+      "tool_order": [
+        "contamination_detector",
+        "leakage_detector",
+        "feature_utility"
+      ],
+      "complexity_score": 0.0,
+      "class_balance": 0.8587360594795539,
+      "has_temporal": false,
+      "has_id": false,
+      "primary_goal": "quick_validation",
+      "goal_achieved": false,
+      "goal_progress": 0.6666666666666666,
+      "time_efficiency": 0.0007985750834147135,
+      "strategy_changes": 1,
+      "verdict": "READY",
+      "readiness_score": 100,
+      "critical_count": 0,
+      "warning_count": 0,
+      "learning_stats": {
+        "total_audits": 3,
+        "learning_active": true,
+        "tool_usage_count": {
+          "leakage_detector": 3,
+          "bias_detector": 1,
+          "contamination_detector": 2,
+          "feature_utility": 1
+        },
+        "avg_tool_effectiveness": {
+          "leakage_detector": 7.5,
+          "bias_detector": 0.0,
+          "contamination_detector": 0.0,
+          "feature_utility": 0.0
+        },
+        "unique_dataset_profiles": 2
+      },
+      "validation_score": 0.75
+    },
+    {
+      "filename": "complex_large_test.csv",
+      "dataset_size": 12000,
+      "num_features": 45,
+      "target_column": "fraud",
+      "execution_time": 129.82034611701965,
+      "tools_available": 5,
+      "tools_selected": 5,
+      "tools_executed": 4,
+      "tools_skipped": [
+        "contamination_detector"
+      ],
+      "tool_order": [
+        "leakage_detector",
+        "bias_detector",
+        "feature_utility",
+        "spurious_detector"
+      ],
+      "complexity_score": 0.44999999999999996,
+      "class_balance": 0.08695652173913043,
+      "has_temporal": true,
+      "has_id": true,
+      "primary_goal": "find_critical_issues_quickly",
+      "goal_achieved": false,
+      "goal_progress": 0.76,
+      "time_efficiency": 0.7196599046389262,
+      "strategy_changes": 3,
+      "verdict": "NOT READY",
+      "readiness_score": 15,
+      "critical_count": 44,
+      "warning_count": 26,
+      "learning_stats": {
+        "total_audits": 4,
+        "learning_active": true,
+        "tool_usage_count": {
+          "leakage_detector": 4,
+          "bias_detector": 2,
+          "contamination_detector": 2,
+          "feature_utility": 2,
+          "spurious_detector": 1
+        },
+        "avg_tool_effectiveness": {
+          "leakage_detector": 5.0,
+          "bias_detector": 0.0,
+          "contamination_detector": 0.0,
+          "feature_utility": 0.0,
+          "spurious_detector": 0.3503080342704652
+        },
+        "unique_dataset_profiles": 3
+      },
+      "validation_score": 0.5
+    },
+    {
+      "filename": "multiple_issues_test.csv",
+      "dataset_size": 1600,
+      "num_features": 6,
+      "target_column": "churned",
+      "execution_time": 0.36730313301086426,
+      "tools_available": 5,
+      "tools_selected": 5,
+      "tools_executed": 3,
+      "tools_skipped": [
+        "spurious_detector",
+        "contamination_detector"
+      ],
+      "tool_order": [
+        "bias_detector",
+        "leakage_detector",
+        "feature_utility"
+      ],
+      "complexity_score": 0.30000000000000004,
+      "class_balance": 0.05332455562870309,
+      "has_temporal": false,
+      "has_id": true,
+      "primary_goal": "find_critical_issues_quickly",
+      "goal_achieved": true,
+      "goal_progress": 1.0,
+      "time_efficiency": 0.001215117507510715,
+      "strategy_changes": 6,
+      "verdict": "NOT READY",
+      "readiness_score": 65,
+      "critical_count": 3,
+      "warning_count": 2,
+      "learning_stats": {
+        "total_audits": 5,
+        "learning_active": true,
+        "tool_usage_count": {
+          "leakage_detector": 5,
+          "bias_detector": 3,
+          "contamination_detector": 2,
+          "feature_utility": 3,
+          "spurious_detector": 1
+        },
+        "avg_tool_effectiveness": {
+          "leakage_detector": 10.0,
+          "bias_detector": 0.0,
+          "contamination_detector": 0.0,
+          "feature_utility": 0.0,
+          "spurious_detector": 0.3503080342704652
+        },
+        "unique_dataset_profiles": 3
+      },
+      "validation_score": 0.5
+    }
+  ],
+  "summary": {
+    "total_tests": 5,
+    "avg_validation_score": 0.55,
+    "unique_goals": [
+      "quick_validation",
+      "find_critical_issues_quickly"
+    ],
+    "total_strategy_pivots": 13
+  }
+}

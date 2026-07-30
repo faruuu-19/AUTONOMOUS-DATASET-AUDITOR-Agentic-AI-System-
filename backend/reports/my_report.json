@@ -1,0 +1,578 @@
+{
+  "audit_metadata": {
+    "start_time": "2026-01-22T13:39:41.455339",
+    "end_time": "2026-01-22T13:39:42.073269",
+    "dataset_shape": [
+      200,
+      6
+    ],
+    "target_column": "target"
+  },
+  "verdict": "NOT READY",
+  "readiness_score": 0,
+  "summary": {
+    "tools_executed": 5,
+    "total_findings": 21,
+    "critical_count": 9,
+    "warning_count": 9,
+    "info_count": 3
+  },
+  "critical_blockers": [
+    {
+      "type": "perfect_correlation",
+      "severity": "critical",
+      "feature": "leaked_feature",
+      "message": "Feature \"leaked_feature\" has near-perfect correlation (1.0000) with target",
+      "evidence": {
+        "correlation": 1.0
+      },
+      "tool": "leakage_detector"
+    },
+    {
+      "type": "identical_to_target",
+      "severity": "critical",
+      "feature": "leaked_feature",
+      "message": "Feature \"leaked_feature\" is identical to target column",
+      "evidence": {},
+      "tool": "leakage_detector"
+    },
+    {
+      "type": "linear_transformation",
+      "severity": "critical",
+      "feature": "leaked_feature",
+      "message": "Feature \"leaked_feature\" appears to be a linear transformation of target (R\u00b2=1.000000)",
+      "evidence": {
+        "r2": 1.0,
+        "coefficient": 1.0,
+        "intercept": 0.0
+      },
+      "tool": "leakage_detector"
+    },
+    {
+      "type": "single_feature_dominance",
+      "severity": "critical",
+      "feature": "age",
+      "message": "Single feature \"age\" achieves 93.5% accuracy - potential shortcut learning",
+      "evidence": {
+        "accuracy": 0.9348710990502035,
+        "cv_scores": [
+          0.9552238805970149,
+          0.9402985074626866,
+          0.9090909090909091
+        ]
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "single_feature_dominance",
+      "severity": "critical",
+      "feature": "income",
+      "message": "Single feature \"income\" achieves 94.0% accuracy - potential shortcut learning",
+      "evidence": {
+        "accuracy": 0.9400723654454998,
+        "cv_scores": [
+          0.9402985074626866,
+          0.9253731343283582,
+          0.9545454545454546
+        ]
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "single_feature_dominance",
+      "severity": "critical",
+      "feature": "credit_score",
+      "message": "Single feature \"credit_score\" achieves 94.0% accuracy - potential shortcut learning",
+      "evidence": {
+        "accuracy": 0.9399969847731042,
+        "cv_scores": [
+          0.9402985074626866,
+          0.9402985074626866,
+          0.9393939393939394
+        ]
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "single_feature_dominance",
+      "severity": "critical",
+      "feature": "leaked_feature",
+      "message": "Single feature \"leaked_feature\" achieves 100.0% accuracy - potential shortcut learning",
+      "evidence": {
+        "accuracy": 1.0,
+        "cv_scores": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "single_feature_dominance",
+      "severity": "critical",
+      "feature": "constant_col",
+      "message": "Single feature \"constant_col\" achieves 95.0% accuracy - potential shortcut learning",
+      "evidence": {
+        "accuracy": 0.9500226142017186,
+        "cv_scores": [
+          0.9552238805970149,
+          0.9402985074626866,
+          0.9545454545454546
+        ]
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "constant_feature",
+      "severity": "critical",
+      "feature": "constant_col",
+      "message": "Feature \"constant_col\" has only one unique value - provides no information",
+      "evidence": {
+        "unique_values": 1,
+        "constant_value": "1"
+      },
+      "tool": "feature_utility"
+    }
+  ],
+  "warnings": [
+    {
+      "type": "moderate_imbalance",
+      "severity": "warning",
+      "message": "Moderate class imbalance detected (ratio 19.0:1)",
+      "evidence": {
+        "imbalance_ratio": 19.0,
+        "class_distribution": {
+          "0": 95.0,
+          "1": 5.0
+        }
+      },
+      "tool": "bias_detector"
+    },
+    {
+      "type": "feature_distribution_bias",
+      "severity": "warning",
+      "feature": "leaked_feature",
+      "message": "Feature \"leaked_feature\" has significantly different distributions across classes",
+      "evidence": {
+        "p_value": 3.451890018846385e-45,
+        "effect_size": 0.9999999999999993,
+        "test": "kruskal_wallis"
+      },
+      "tool": "bias_detector"
+    },
+    {
+      "type": "small_class_size",
+      "severity": "warning",
+      "message": "Smallest class has only 10 samples",
+      "evidence": {
+        "min_class_size": 10,
+        "class_distribution": {
+          "0": 190,
+          "1": 10
+        }
+      },
+      "tool": "bias_detector"
+    },
+    {
+      "type": "simple_threshold_rule",
+      "severity": "warning",
+      "feature": "leaked_feature",
+      "message": "Simple threshold rule on \"leaked_feature\" achieves 100.0% accuracy",
+      "evidence": {
+        "accuracy": 1.0,
+        "threshold": 0.0,
+        "percentile": 25
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "simple_threshold_rule",
+      "severity": "warning",
+      "feature": "constant_col",
+      "message": "Simple threshold rule on \"constant_col\" achieves 95.0% accuracy",
+      "evidence": {
+        "accuracy": 0.95,
+        "threshold": 1.0,
+        "percentile": 25
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "concentrated_importance",
+      "severity": "warning",
+      "feature": "leaked_feature",
+      "message": "Feature \"leaked_feature\" accounts for 82.2% of importance - unusually concentrated",
+      "evidence": {
+        "importance_percentage": 82.19668253752003,
+        "feature_importances": {
+          "age": 0.02999141670429116,
+          "income": 0.0743748711084653,
+          "credit_score": 0.07366688681204318,
+          "leaked_feature": 0.8219668253752004,
+          "constant_col": 0.0
+        }
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "unstable_predictor",
+      "severity": "warning",
+      "feature": "credit_score",
+      "message": "Feature \"credit_score\" has low variance (CV=0.0706) despite high accuracy - may not generalize",
+      "evidence": {
+        "coefficient_variation": 0.07060901570957524
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "unstable_predictor",
+      "severity": "warning",
+      "feature": "constant_col",
+      "message": "Feature \"constant_col\" has low variance (CV=0.0000) despite high accuracy - may not generalize",
+      "evidence": {
+        "coefficient_variation": 0.0
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "low_variance_numeric",
+      "severity": "warning",
+      "feature": "constant_col",
+      "message": "Feature \"constant_col\" has very low variance (CV=0.0000)",
+      "evidence": {
+        "coefficient_of_variation": 0.0,
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "tool": "feature_utility"
+    }
+  ],
+  "critic_assessment": {
+    "overall_confidence": 0.86,
+    "reliability": "medium",
+    "major_concerns": [
+      "Found 1 features with near-perfect correlation. Verify these are not legitimate derived features.",
+      "DEFINITIVE: 1 features are identical to target. This is certain leakage.",
+      "Small class size (10 samples) - monitor performance on minority class.",
+      "Single features achieving high accuracy alone. Could be legitimate or spurious.",
+      "Simple threshold rules work too well. Verify this is not dataset artifact."
+    ],
+    "actionable_recommendations": [
+      "Test model on out-of-distribution data to check generalization.",
+      "Consider ablation studies to understand feature importance.",
+      "Verify domain knowledge: Is this feature logically causal?",
+      "Manually inspect features with perfect correlation to confirm they are truly leaked."
+    ],
+    "tools_needing_recheck": [
+      "spurious_detector"
+    ],
+    "critique_count": 5
+  },
+  "recommendations": [
+    "Test model on out-of-distribution data to check generalization.",
+    "Verify domain knowledge: Is this feature logically causal?",
+    "Consider ablation studies to understand feature importance.",
+    "PRIORITY: Remove or investigate features flagged as data leakage before training any models.",
+    "Manually inspect features with perfect correlation to confirm they are truly leaked."
+  ],
+  "execution_timeline": [
+    {
+      "tool_name": "leakage_detector",
+      "timestamp": "2026-01-22T13:39:41.459786",
+      "status": "fail",
+      "findings_count": 3,
+      "execution_time": 0.003911495208740234
+    },
+    {
+      "tool_name": "contamination_detector",
+      "timestamp": "2026-01-22T13:39:41.465459",
+      "status": "pass",
+      "findings_count": 0,
+      "execution_time": 0.0045773983001708984
+    },
+    {
+      "tool_name": "bias_detector",
+      "timestamp": "2026-01-22T13:39:41.475282",
+      "status": "warning",
+      "findings_count": 3,
+      "execution_time": 0.00950479507446289
+    },
+    {
+      "tool_name": "spurious_detector",
+      "timestamp": "2026-01-22T13:39:42.052439",
+      "status": "fail",
+      "findings_count": 8,
+      "execution_time": 0.575406551361084
+    },
+    {
+      "tool_name": "feature_utility",
+      "timestamp": "2026-01-22T13:39:42.072884",
+      "status": "fail",
+      "findings_count": 5,
+      "execution_time": 0.016936063766479492
+    }
+  ],
+  "all_findings": [
+    {
+      "type": "perfect_correlation",
+      "severity": "critical",
+      "feature": "leaked_feature",
+      "message": "Feature \"leaked_feature\" has near-perfect correlation (1.0000) with target",
+      "evidence": {
+        "correlation": 1.0
+      },
+      "tool": "leakage_detector"
+    },
+    {
+      "type": "identical_to_target",
+      "severity": "critical",
+      "feature": "leaked_feature",
+      "message": "Feature \"leaked_feature\" is identical to target column",
+      "evidence": {},
+      "tool": "leakage_detector"
+    },
+    {
+      "type": "linear_transformation",
+      "severity": "critical",
+      "feature": "leaked_feature",
+      "message": "Feature \"leaked_feature\" appears to be a linear transformation of target (R\u00b2=1.000000)",
+      "evidence": {
+        "r2": 1.0,
+        "coefficient": 1.0,
+        "intercept": 0.0
+      },
+      "tool": "leakage_detector"
+    },
+    {
+      "type": "moderate_imbalance",
+      "severity": "warning",
+      "message": "Moderate class imbalance detected (ratio 19.0:1)",
+      "evidence": {
+        "imbalance_ratio": 19.0,
+        "class_distribution": {
+          "0": 95.0,
+          "1": 5.0
+        }
+      },
+      "tool": "bias_detector"
+    },
+    {
+      "type": "feature_distribution_bias",
+      "severity": "warning",
+      "feature": "leaked_feature",
+      "message": "Feature \"leaked_feature\" has significantly different distributions across classes",
+      "evidence": {
+        "p_value": 3.451890018846385e-45,
+        "effect_size": 0.9999999999999993,
+        "test": "kruskal_wallis"
+      },
+      "tool": "bias_detector"
+    },
+    {
+      "type": "small_class_size",
+      "severity": "warning",
+      "message": "Smallest class has only 10 samples",
+      "evidence": {
+        "min_class_size": 10,
+        "class_distribution": {
+          "0": 190,
+          "1": 10
+        }
+      },
+      "tool": "bias_detector"
+    },
+    {
+      "type": "single_feature_dominance",
+      "severity": "critical",
+      "feature": "age",
+      "message": "Single feature \"age\" achieves 93.5% accuracy - potential shortcut learning",
+      "evidence": {
+        "accuracy": 0.9348710990502035,
+        "cv_scores": [
+          0.9552238805970149,
+          0.9402985074626866,
+          0.9090909090909091
+        ]
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "single_feature_dominance",
+      "severity": "critical",
+      "feature": "income",
+      "message": "Single feature \"income\" achieves 94.0% accuracy - potential shortcut learning",
+      "evidence": {
+        "accuracy": 0.9400723654454998,
+        "cv_scores": [
+          0.9402985074626866,
+          0.9253731343283582,
+          0.9545454545454546
+        ]
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "single_feature_dominance",
+      "severity": "critical",
+      "feature": "credit_score",
+      "message": "Single feature \"credit_score\" achieves 94.0% accuracy - potential shortcut learning",
+      "evidence": {
+        "accuracy": 0.9399969847731042,
+        "cv_scores": [
+          0.9402985074626866,
+          0.9402985074626866,
+          0.9393939393939394
+        ]
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "single_feature_dominance",
+      "severity": "critical",
+      "feature": "leaked_feature",
+      "message": "Single feature \"leaked_feature\" achieves 100.0% accuracy - potential shortcut learning",
+      "evidence": {
+        "accuracy": 1.0,
+        "cv_scores": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "single_feature_dominance",
+      "severity": "critical",
+      "feature": "constant_col",
+      "message": "Single feature \"constant_col\" achieves 95.0% accuracy - potential shortcut learning",
+      "evidence": {
+        "accuracy": 0.9500226142017186,
+        "cv_scores": [
+          0.9552238805970149,
+          0.9402985074626866,
+          0.9545454545454546
+        ]
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "simple_threshold_rule",
+      "severity": "warning",
+      "feature": "leaked_feature",
+      "message": "Simple threshold rule on \"leaked_feature\" achieves 100.0% accuracy",
+      "evidence": {
+        "accuracy": 1.0,
+        "threshold": 0.0,
+        "percentile": 25
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "simple_threshold_rule",
+      "severity": "warning",
+      "feature": "constant_col",
+      "message": "Simple threshold rule on \"constant_col\" achieves 95.0% accuracy",
+      "evidence": {
+        "accuracy": 0.95,
+        "threshold": 1.0,
+        "percentile": 25
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "concentrated_importance",
+      "severity": "warning",
+      "feature": "leaked_feature",
+      "message": "Feature \"leaked_feature\" accounts for 82.2% of importance - unusually concentrated",
+      "evidence": {
+        "importance_percentage": 82.19668253752003,
+        "feature_importances": {
+          "age": 0.02999141670429116,
+          "income": 0.0743748711084653,
+          "credit_score": 0.07366688681204318,
+          "leaked_feature": 0.8219668253752004,
+          "constant_col": 0.0
+        }
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "unstable_predictor",
+      "severity": "warning",
+      "feature": "credit_score",
+      "message": "Feature \"credit_score\" has low variance (CV=0.0706) despite high accuracy - may not generalize",
+      "evidence": {
+        "coefficient_variation": 0.07060901570957524
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "unstable_predictor",
+      "severity": "warning",
+      "feature": "constant_col",
+      "message": "Feature \"constant_col\" has low variance (CV=0.0000) despite high accuracy - may not generalize",
+      "evidence": {
+        "coefficient_variation": 0.0
+      },
+      "tool": "spurious_detector"
+    },
+    {
+      "type": "constant_feature",
+      "severity": "critical",
+      "feature": "constant_col",
+      "message": "Feature \"constant_col\" has only one unique value - provides no information",
+      "evidence": {
+        "unique_values": 1,
+        "constant_value": "1"
+      },
+      "tool": "feature_utility"
+    },
+    {
+      "type": "low_variance_numeric",
+      "severity": "warning",
+      "feature": "constant_col",
+      "message": "Feature \"constant_col\" has very low variance (CV=0.0000)",
+      "evidence": {
+        "coefficient_of_variation": 0.0,
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "tool": "feature_utility"
+    },
+    {
+      "type": "low_information_feature",
+      "severity": "info",
+      "feature": "age",
+      "message": "Feature \"age\" has very low mutual information with target",
+      "evidence": {
+        "mutual_information": 0.0,
+        "normalized_mi": 0.0
+      },
+      "tool": "feature_utility"
+    },
+    {
+      "type": "low_information_feature",
+      "severity": "info",
+      "feature": "income",
+      "message": "Feature \"income\" has very low mutual information with target",
+      "evidence": {
+        "mutual_information": 0.007262016024735862,
+        "normalized_mi": 0.036119194121456526
+      },
+      "tool": "feature_utility"
+    },
+    {
+      "type": "low_information_feature",
+      "severity": "info",
+      "feature": "credit_score",
+      "message": "Feature \"credit_score\" has very low mutual information with target",
+      "evidence": {
+        "mutual_information": 0.0,
+        "normalized_mi": 0.0
+      },
+      "tool": "feature_utility"
+    }
+  ]
+}
