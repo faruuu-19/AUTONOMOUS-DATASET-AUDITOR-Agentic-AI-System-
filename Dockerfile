@@ -16,7 +16,16 @@ RUN python -m pip install --no-cache-dir -r requirements.txt gunicorn
 COPY backend/ /app/backend/
 COPY --from=frontend-build /app/frontend/dist/public /app/frontend/dist/public
 
-ENV PORT=10000
-EXPOSE 10000
+# Hugging Face Spaces runs containers as UID 1000, so the app must own the
+# directories it writes to at runtime (uploads, persisted job reports, and the
+# meta-learning pickles). Render runs as root and is unaffected by this.
+RUN useradd -m -u 1000 appuser \
+    && mkdir -p /app/backend/data/uploads /app/backend/reports/jobs \
+    && chown -R appuser:appuser /app
 
-CMD ["sh", "-c", "gunicorn -w 1 --timeout 600 -b 0.0.0.0:${PORT:-10000} api_server:app"]
+USER appuser
+
+ENV PORT=7860
+EXPOSE 7860
+
+CMD ["sh", "-c", "gunicorn -w 1 --timeout 600 -b 0.0.0.0:${PORT:-7860} api_server:app"]

@@ -1,3 +1,13 @@
+---
+title: Autonomous Dataset Auditor
+emoji: 🔍
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # Autonomous Dataset Auditor
 
 An agentic system that audits a tabular dataset **before** you train a model on it, and tells you whether the data is trustworthy.
